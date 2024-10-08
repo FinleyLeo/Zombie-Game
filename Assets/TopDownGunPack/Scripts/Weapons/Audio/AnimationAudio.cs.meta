@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0b746e6541b5b4a15afb530c6e828ec5
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Scripts/Weapons/Audio/AnimationAudio.cs
+  uploadId: 291265

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 04e69835e30364b34aab2c765ad334b7
+labels:
+- Projectile
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Gun Components/Projectiles/bullet_sniper.prefab
+  uploadId: 291265

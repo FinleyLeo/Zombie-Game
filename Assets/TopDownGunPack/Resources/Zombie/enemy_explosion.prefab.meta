@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 84f5a4796d69c4e39b90929f00e1327f
+labels:
+- Explosion
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Zombie/enemy_explosion.prefab
+  uploadId: 291265

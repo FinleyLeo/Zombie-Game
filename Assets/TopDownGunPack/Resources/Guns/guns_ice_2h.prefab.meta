@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1a524a848376c41efa1aaaca59ee9764
+labels:
+- Gun
+- Ice
+- Icegun
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Guns/guns_ice_2h.prefab
+  uploadId: 291265

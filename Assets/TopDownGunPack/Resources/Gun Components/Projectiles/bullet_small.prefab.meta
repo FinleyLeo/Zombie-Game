@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 49bb672d22e4840a1a3bef98fc7070b6
+labels:
+- Projectile
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Gun Components/Projectiles/bullet_small.prefab
+  uploadId: 291265

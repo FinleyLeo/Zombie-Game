@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7fc870bdd05f04611844113a667a0944
+labels:
+- Gun
+- Sniper
+- LaserSight
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Guns/gun_sniper_2h.prefab
+  uploadId: 291265

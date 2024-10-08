@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 28262bac84a1d4b33bd6d9ca1158d3ba
+labels:
+- Gun
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Guns/gun_smg_dw.prefab
+  uploadId: 291265

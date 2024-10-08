@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4f4d587ff7eac4380a47bdc920a484a6
+labels:
+- Smoke
+- SmokeTrail
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Gun Components/Projectiles/smoke_trail.prefab
+  uploadId: 291265

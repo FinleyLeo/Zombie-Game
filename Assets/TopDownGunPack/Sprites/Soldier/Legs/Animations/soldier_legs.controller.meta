@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 0b2e997a9ef604c2b8b54e0469921a5c
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Sprites/Soldier/Legs/Animations/soldier_legs.controller
+  uploadId: 291265

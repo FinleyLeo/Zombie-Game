@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 769e222c4c76d4b9ba2c2787b5d33142
+labels:
+- Gun
+- DualWield
+- Dual-Wield
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Guns/gun_pistol_dw.prefab
+  uploadId: 291265

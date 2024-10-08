@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4ad3f7cfb8da54b4ab5cff5fe432ab9a
+labels:
+- GunSight
+- Sight
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Gun Components/gun_sight.prefab
+  uploadId: 291265

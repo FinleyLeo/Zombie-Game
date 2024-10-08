@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2f68ec119cb9b4d2dba44df06d9d8863
+labels:
+- Gun
+- ChainLightning
+- Lightning
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Guns/gun_bolt_2h.prefab
+  uploadId: 291265

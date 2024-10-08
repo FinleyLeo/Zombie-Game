@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 221c6a815c5dc44918199e8518e59c11
+labels:
+- Gun
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Guns/guns_fireball_dw.prefab
+  uploadId: 291265

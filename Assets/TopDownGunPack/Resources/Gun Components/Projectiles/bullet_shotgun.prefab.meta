@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 17d9f2eed77274b3982a6b18c8c67476
+labels:
+- Projectile
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Gun Components/Projectiles/bullet_shotgun.prefab
+  uploadId: 291265

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 47f1819847ec14a59a4d559f15380f8e
+labels:
+- MuzzleFlash
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Gun Components/Muzzle Flashes/gun_muzzle_flash_single_large.prefab
+  uploadId: 291265

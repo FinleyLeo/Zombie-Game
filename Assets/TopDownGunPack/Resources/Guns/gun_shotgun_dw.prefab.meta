@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 693dc53e310ba480a97c038d9e4843f5
+labels:
+- Gun
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Resources/Guns/gun_shotgun_dw.prefab
+  uploadId: 291265

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3cab7788540f840529493d33772b4579
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 35277
+  packageName: Top Down Gun Pack
+  packageVersion: 1.5
+  assetPath: Assets/TopDownGunPack/Scripts/Weapons/Gun.cs
+  uploadId: 291265
