@@ -7,6 +7,14 @@ public class PlayerAimWeapon : MonoBehaviour
 {
     private Transform aim;
 
+    public GameObject bullet;
+    public GameObject flash;
+    public GameObject firePoint;
+
+    public AudioSource audioSource;
+
+    private float coolDown = 0.25f;
+
     private void Awake()
     {
         
@@ -21,6 +29,8 @@ public class PlayerAimWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        coolDown -= Time.deltaTime;
+
         Aiming();
         Shooting();
     }
@@ -37,9 +47,22 @@ public class PlayerAimWeapon : MonoBehaviour
 
     void Shooting()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && coolDown <= 0)
         {
-            Debug.Log("Shoot");
+            flash.SetActive(true);
+            StartCoroutine(FlashTime());
+            audioSource.Play();
+
+            Instantiate(bullet, firePoint.transform.position, transform.rotation);
+
+            coolDown = 0.25f;
         }
+    }
+
+    IEnumerator FlashTime()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        flash.SetActive(false);
     }
 }
