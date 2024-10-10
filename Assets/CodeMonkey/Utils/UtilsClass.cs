@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Cinemachine;
 
 namespace CodeMonkey.Utils {
 
@@ -37,6 +38,8 @@ namespace CodeMonkey.Utils {
 
         // Get Main Canvas Transform
         private static Transform cachedCanvasTransform;
+
+        [Obsolete]
         public static Transform GetCanvasTransform() {
             if (cachedCanvasTransform == null) {
                 Canvas canvas = MonoBehaviour.FindObjectOfType<Canvas>();

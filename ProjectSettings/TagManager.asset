@@ -6,17 +6,16 @@ TagManager:
   tags:
   - Enemy
   - Weapon
-  - GunBody
-  - GunSight
-  - GunBarrel
-  - GunMuzzle
-  - GunClip
-  - GunProjectile
   - Wall
   - GunStock
   - SmokeTrail
   - Spawner
   - GunFlash
+  - Base
+  - Coin
+  - PickupRange
+  - Floor
+  - Entrance
   layers:
   - Default
   - TransparentFX

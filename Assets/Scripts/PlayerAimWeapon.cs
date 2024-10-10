@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
+using Cinemachine;
 
 public class PlayerAimWeapon : MonoBehaviour
 {
@@ -10,14 +11,29 @@ public class PlayerAimWeapon : MonoBehaviour
     public GameObject bullet;
     public GameObject flash;
     public GameObject firePoint;
+    public GameObject cam;
+
+    public Camera _cam;
 
     public AudioSource audioSource;
 
     private float coolDown = 0.25f;
 
-    private void Awake()
+    private void OnEnable()
     {
-        
+        CinemachineCore.CameraUpdatedEvent.RemoveListener(OnCameraUpdated);
+        CinemachineCore.CameraUpdatedEvent.AddListener(OnCameraUpdated);
+    }
+
+    private void OnDisable()
+    {
+        CinemachineCore.CameraUpdatedEvent.RemoveListener(OnCameraUpdated);
+    }
+
+    void OnCameraUpdated(CinemachineBrain brain)
+    {
+        Aiming();
+        Shooting();
     }
 
     // Start is called before the first frame update
@@ -30,14 +46,11 @@ public class PlayerAimWeapon : MonoBehaviour
     void Update()
     {
         coolDown -= Time.deltaTime;
-
-        Aiming();
-        Shooting();
     }
 
     void Aiming()
     {
-        Vector3 mousePos = UtilsClass.GetMouseWorldPosition();
+        Vector3 mousePos = _cam.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3 aimDir = (mousePos - transform.position).normalized;
         float zAngle = Mathf.Atan2(aimDir.x, aimDir.y) * Mathf.Rad2Deg;
@@ -52,6 +65,7 @@ public class PlayerAimWeapon : MonoBehaviour
             flash.SetActive(true);
             StartCoroutine(FlashTime());
             audioSource.Play();
+            cam.GetComponent<CameraShake>().TriggerShake();
 
             Instantiate(bullet, firePoint.transform.position, transform.rotation);
 

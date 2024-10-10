@@ -8,11 +8,17 @@ public class BulletScript : MonoBehaviour
 
     public float speed;
 
+    public GameObject bloodSplatter;
+
+    private KillTime timer;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        StartCoroutine(KillTime());
+        timer = GetComponent<KillTime>();
+
+        StartCoroutine(timer.KillTimer(0.5f));
     }
 
     // Update is called once per frame
@@ -21,20 +27,13 @@ public class BulletScript : MonoBehaviour
         transform.position += transform.up * speed * Time.deltaTime;
     }
 
-    IEnumerator KillTime()
-    {
-        yield return new WaitForSeconds(2);
-
-        Destroy(gameObject);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Enemy Shot");
-            Destroy(gameObject);
             collision.GetComponent<EnemyScript>().TakeDamage(1);
+            Instantiate(bloodSplatter, transform.position, transform.rotation);
+            Destroy(gameObject);
         }
 
         if (collision.gameObject.CompareTag("Wall"))

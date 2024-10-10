@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7267333500090260295}
   - component: {fileID: 4948774567658919335}
   - component: {fileID: 3303283871850769389}
+  - component: {fileID: -4799454931444760255}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -101,6 +102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
+  bloodSplatter: {fileID: 543856559018696155, guid: f9472e1b6196a2841a0500f2838701a8,
+    type: 3}
 --- !u!50 &4948774567658919335
 Rigidbody2D:
   serializedVersion: 4
@@ -165,3 +168,16 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1}
   m_Direction: 0
+--- !u!114 &-4799454931444760255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6316845048193857919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09172709a6650d444a6c0880648bf7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seconds: 0.5
