@@ -106,6 +106,7 @@ public class EnemyScript : MonoBehaviour
             }
 
             deathSound.Play();
+            CameraShake.Instance.ShakeCamera(2f, 0.25f);
             Instantiate(explosion, transform.position, Quaternion.identity);
             isDead = true;
             sr.enabled = false;

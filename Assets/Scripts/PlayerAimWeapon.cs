@@ -15,9 +15,14 @@ public class PlayerAimWeapon : MonoBehaviour
 
     public Camera _cam;
 
-    public AudioSource audioSource;
+    public AudioSource shoot;
+    public AudioClip empty;
+    public AudioClip reload;
 
     private float coolDown = 0.25f;
+    public float maxAmmo = 10, ammo;
+
+    private bool isReloading;
 
     private void OnEnable()
     {
@@ -39,7 +44,7 @@ public class PlayerAimWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ammo = maxAmmo;
     }
 
     // Update is called once per frame
@@ -60,16 +65,30 @@ public class PlayerAimWeapon : MonoBehaviour
 
     void Shooting()
     {
-        if (Input.GetMouseButtonDown(0) && coolDown <= 0)
+        if (Input.GetMouseButtonDown(0) && coolDown <= 0 && ammo > 0 && !isReloading)
         {
             flash.SetActive(true);
             StartCoroutine(FlashTime());
-            audioSource.Play();
-            cam.GetComponent<CameraShake>().TriggerShake();
+            CameraShake.Instance.ShakeCamera(1f, 0.25f);
+            shoot.Play();
+            ammo--;
 
             Instantiate(bullet, firePoint.transform.position, transform.rotation);
 
             coolDown = 0.25f;
+        }
+
+        else if (Input.GetMouseButtonDown(0) && ammo < 1 && !isReloading)
+        {
+            shoot.PlayOneShot(empty);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            shoot.PlayOneShot(reload);
+            GetComponent<PlayerController>().speed /= 2;
+            isReloading = true;
+            StartCoroutine(ReloadTime());
         }
     }
 
@@ -78,5 +97,14 @@ public class PlayerAimWeapon : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         flash.SetActive(false);
+    }
+
+    IEnumerator ReloadTime()
+    {
+        yield return new WaitForSeconds(reload.length);
+
+        GetComponent<PlayerController>().speed *= 2;
+        isReloading = false;
+        ammo = maxAmmo;
     }
 }

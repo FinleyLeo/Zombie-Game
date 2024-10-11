@@ -1,8 +1,10 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TDGP;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float maxHealth = 6, health;
     public float speed = 5, maxSpeed = 7;
     public float coins;
+    public float lightCharge = 60f;
 
     // Inputs
     private float horizontalInput, verticalInput;
@@ -17,6 +20,9 @@ public class PlayerController : MonoBehaviour
     // Booleans
     private bool isPlaying;
     private bool lightActive;
+    private bool soundPlayed;
+    private bool onFloor;
+    private bool onGround;
 
     // Player Components
     private Rigidbody2D rb;
@@ -24,13 +30,20 @@ public class PlayerController : MonoBehaviour
 
     // Audio Components
     public AudioSource audioSource;
-    public AudioSource walking;
+    public AudioSource ambientAudio;
+    public AudioSource floorWalking;
+    public AudioSource grassWalking;
     public AudioClip coinPickup;
     public AudioClip Flashswitch;
+    public AudioClip outsideAmb;
+    public AudioClip indoorAmb;
 
     // GameObjects
     public GameObject cam, flashLight;
 
+    // UI
+    public Image battery;
+    public Animator batteryAnim;
 
     // Start is called before the first frame update
     void Start()
@@ -40,8 +53,6 @@ public class PlayerController : MonoBehaviour
 
         lightActive = false;
         health = maxHealth;
-
-        Physics2D.IgnoreCollision(GameObject.FindWithTag("Entrance").GetComponent<Collider2D>(), col);
     }
 
     // Update is called once per frame
@@ -49,6 +60,7 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         LightToggle();
+        LightCharge();
     }
 
     // Player Movement in all directions
@@ -68,15 +80,22 @@ public class PlayerController : MonoBehaviour
         }
 
         // Plays footstep walking sounds when moving
-        if (rb.velocity.magnitude > 0 && !isPlaying)
+        if (rb.velocity.magnitude > 0 && !isPlaying && onFloor)
         {
-            walking.Play();
+            floorWalking.Play();
             isPlaying = true;
         }
 
-        else if (rb.velocity.magnitude <= 0)
+        if (rb.velocity.magnitude > 0 && !isPlaying && onGround)
         {
-            walking.Stop();
+            grassWalking.Play();
+            isPlaying = true;
+        }
+
+        if (rb.velocity.magnitude <= 0)
+        {
+            floorWalking.Stop();
+            grassWalking.Stop();
             isPlaying = false;
         }
     }
@@ -84,27 +103,34 @@ public class PlayerController : MonoBehaviour
     // Toggles FlashLight
     void LightToggle()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && !soundPlayed)
         {
             audioSource.PlayOneShot(Flashswitch);
             lightActive = !lightActive;
         }
 
-        if (lightActive == true)
+        if (lightActive == true && lightCharge > 0)
         {
+            flashLight.SetActive(true);
+
             if (cam.GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize < 8)
             {
                 cam.GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize += 4f * Time.deltaTime;
+
             }
 
             else if (cam.GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize > 8)
             {
                 cam.GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize = 8;
             }
+
+            lightCharge -= Time.deltaTime;
         }
 
-        else if (lightActive == false)
+        else if (lightActive == false || lightCharge <= 0)
         {
+            flashLight.SetActive(false);
+
             if (cam.GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize > 6)
             {
                 cam.GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize -= 4f * Time.deltaTime;
@@ -116,7 +142,21 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        flashLight.SetActive(lightActive);
+        if (lightCharge <= 0  && !soundPlayed && lightActive)
+        {
+            audioSource.PlayOneShot(Flashswitch);
+            soundPlayed = true;
+        }
+
+        else if (lightCharge > 0)
+        {
+            soundPlayed = false;
+        }
+    }
+
+    void LightCharge()
+    {
+        batteryAnim.SetFloat("Charge", lightCharge);
     }
 
     public void TakeDamage(int damage)
@@ -158,5 +198,28 @@ public class PlayerController : MonoBehaviour
             coins++;
             Destroy(collision.gameObject);
         }
+
+        if (collision.gameObject.CompareTag("Floor") && collision.IsTouching(col))
+        {
+            grassWalking.Stop();
+            floorWalking.Play();
+            onGround = false;
+            onFloor = true;
+            ambientAudio.Stop();
+            ambientAudio.PlayOneShot(indoorAmb);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            floorWalking.Stop();
+            grassWalking.Play();
+            onFloor = false;
+            onGround = true;
+            ambientAudio.Stop();
+            ambientAudio.PlayOneShot(outsideAmb);
+    }
     }
 }

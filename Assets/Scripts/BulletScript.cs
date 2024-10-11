@@ -1,21 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private SpriteRenderer sr;
 
     public float speed;
+
+    private bool isDestroyed;
 
     public GameObject bloodSplatter;
 
     private KillTime timer;
 
+    public AudioSource hitWall;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+
         timer = GetComponent<KillTime>();
 
         StartCoroutine(timer.KillTimer(0.5f));
@@ -24,7 +32,10 @@ public class BulletScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.up * speed * Time.deltaTime;
+        if (!isDestroyed)
+        {
+            transform.position += transform.up * speed * Time.deltaTime;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -38,7 +49,10 @@ public class BulletScript : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Wall"))
         {
-            Destroy(gameObject);
+            hitWall.Play();
+            CameraShake.Instance.ShakeCamera(0.5f, 0.25f);
+            sr.enabled = false;
+            isDestroyed = true;
         }
     }
 
