@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     private bool isPlaying;
     private bool lightActive;
     private bool soundPlayed;
-    private bool onFloor;
-    private bool onGround;
+    public bool onFloor = true;
+    public bool onGround = false;
 
     // Player Components
     private Rigidbody2D rb;

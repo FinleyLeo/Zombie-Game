@@ -5,7 +5,12 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    private GameObject player;
     public GameObject zombie;
+    public GameObject waveTimer;
+    private WaveTimer timerScript;
+
+    public GameObject entranceBlock;
 
     public TextMeshProUGUI waveCounter;
 
@@ -14,15 +19,21 @@ public class SpawnManager : MonoBehaviour
     public float maxYRange;
 
     public int zombieCount;
-    public int wave = 3;
+    public int wave = 2;
     private int waveCount;
+
+    private PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player");
+        playerController = player.GetComponent<PlayerController>();
+
+        timerScript = waveTimer.GetComponent<WaveTimer>();
+
         waveCount = wave - 2;
         waveCounter.text = waveCount.ToString();
-        SpawnWave(wave);
     }
 
     // Update is called once per frame
@@ -30,11 +41,31 @@ public class SpawnManager : MonoBehaviour
     {
         zombieCount = FindObjectsOfType<EnemyScript>().Length;
 
-        if (zombieCount == 0)
+        if (zombieCount == 0 && playerController.onGround)
         {
-            wave++;
-            waveCount++;
-            SpawnWave(wave);
+            if (waveCount % 5 != 0 || waveCount == 0)
+            {
+                entranceBlock.SetActive(true);
+                wave++;
+                waveCount++;
+                SpawnWave(wave);
+            }
+
+            else if (waveCount % 5  == 0 && waveCount != 0)
+            {
+                entranceBlock.SetActive(false);
+                waveTimer.SetActive(true);
+
+                if (timerScript.timer <= 0)
+                {
+                    entranceBlock.SetActive(true);
+                    wave++;
+                    waveCount++;
+                    waveTimer.SetActive(false);
+                    SpawnWave(wave);
+                }
+            }
+            
         }
     }
 
@@ -50,7 +81,7 @@ public class SpawnManager : MonoBehaviour
 
     Vector3 GenerateSpawnPos()
     {
-        Vector3 spawnPos = new Vector3(Random.Range(-xRange, xRange), Random.Range(minYRange, maxYRange), 0);
+        Vector3 spawnPos = new Vector3(Random.Range(-xRange, xRange), Random.Range(minYRange, maxYRange), 30);
 
         return spawnPos;
     }

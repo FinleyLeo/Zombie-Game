@@ -89,6 +89,7 @@ public class EnemyScript : MonoBehaviour
     public void TakeDamage(int damage)
     {
         hit.Play();
+        CameraShake.Instance.ShakeCamera(0.5f, 0.25f);
         health -= damage;
 
         if (health <= 0)
@@ -133,6 +134,9 @@ public class EnemyScript : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        isColliding = false;
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            isColliding = false;
+        }
     }
 }

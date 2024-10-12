@@ -83,7 +83,7 @@ public class PlayerAimWeapon : MonoBehaviour
             shoot.PlayOneShot(empty);
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && !isReloading)
         {
             shoot.PlayOneShot(reload);
             GetComponent<PlayerController>().speed /= 2;
