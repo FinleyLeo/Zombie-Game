@@ -16,6 +16,7 @@ TagManager:
   - PickupRange
   - Floor
   - Entrance
+  - Shop
   layers:
   - Default
   - TransparentFX

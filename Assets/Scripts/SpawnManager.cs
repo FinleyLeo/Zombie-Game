@@ -81,9 +81,8 @@ public class SpawnManager : MonoBehaviour
 
     Vector3 GenerateSpawnPos()
     {
-        Vector3 spawnPos = new Vector3(Random.Range(-xRange, xRange), Random.Range(minYRange, maxYRange), 30);
+        Vector3 spawnPos = new Vector3(Random.Range(-xRange, xRange), Random.Range(minYRange, maxYRange), 35.4f);
 
         return spawnPos;
     }
-    
 }

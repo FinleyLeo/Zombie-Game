@@ -7,10 +7,15 @@ using Cinemachine;
 public class PlayerAimWeapon : MonoBehaviour
 {
     private Transform aim;
+    private PlayerController playerC;
+    private SpriteRenderer sr;
+    private Rigidbody2D rb;
 
     public GameObject bullet;
-    public GameObject flash;
-    public GameObject firePoint;
+    public GameObject rocket;
+    public GameObject rocketPrefab;
+    private GameObject flash;
+    private GameObject firePoint;
     public GameObject cam;
 
     public Camera _cam;
@@ -19,10 +24,17 @@ public class PlayerAimWeapon : MonoBehaviour
     public AudioClip empty;
     public AudioClip reload;
 
-    private float coolDown = 0.25f;
+    private float coolDown;
+    private float startCoolDown = 0.25f;
     public float maxAmmo = 10, ammo;
+    public float recoil;
 
     private bool isReloading;
+
+    public Sprite lightPlayer;
+    public Sprite heavyPlayer;
+
+    public GameObject[] guns;
 
     private void OnEnable()
     {
@@ -35,10 +47,27 @@ public class PlayerAimWeapon : MonoBehaviour
         CinemachineCore.CameraUpdatedEvent.RemoveListener(OnCameraUpdated);
     }
 
+    private void Awake()
+    {
+        playerC = GetComponent<PlayerController>();
+        sr = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
+
+        flash = GameObject.Find("Flash");
+        flash.SetActive(false);
+
+        firePoint = GameObject.Find("FirePoint");
+
+        coolDown = startCoolDown;
+    }
+
     void OnCameraUpdated(CinemachineBrain brain)
     {
-        Aiming();
-        Shooting();
+        if (!playerC.shopOpen)
+        {
+            Aiming();
+            Shooting();
+        }
     }
 
     // Start is called before the first frame update
@@ -65,23 +94,59 @@ public class PlayerAimWeapon : MonoBehaviour
 
     void Shooting()
     {
-        if (Input.GetMouseButtonDown(0) && coolDown <= 0 && ammo > 0 && !isReloading)
+        if (playerC.currentGun != CurrentGun.minigun)
         {
-            flash.SetActive(true);
-            StartCoroutine(FlashTime());
-            CameraShake.Instance.ShakeCamera(1f, 0.25f);
-            shoot.Play();
-            ammo--;
+            if (Input.GetMouseButtonDown(0) && coolDown <= 0 && ammo > 0 && !isReloading)
+            {
+                flash.SetActive(true);
+                StartCoroutine(FlashTime());
+                CameraShake.Instance.ShakeCamera(1f, 0.25f);
+                ammo--;
 
-            Instantiate(bullet, firePoint.transform.position, transform.rotation);
+                if (playerC.currentGun == CurrentGun.pistol)
+                {
+                    shoot.Play();
 
-            coolDown = 0.25f;
+                    Instantiate(bullet, firePoint.transform.position, transform.rotation);
+                }
+                
+                else if (playerC.currentGun == CurrentGun.RPG)
+                {
+                    shoot.Play();
+
+                    rocket.SetActive(false);
+
+                    Instantiate(rocketPrefab, firePoint.transform.position, transform.rotation);
+                }
+
+                coolDown = startCoolDown;
+            }
+
+            else if (Input.GetMouseButtonDown(0) && ammo < 1 && !isReloading)
+            {
+                shoot.PlayOneShot(empty);
+            }
         }
 
-        else if (Input.GetMouseButtonDown(0) && ammo < 1 && !isReloading)
+        else if (playerC.currentGun == CurrentGun.minigun)
         {
-            shoot.PlayOneShot(empty);
+            if (Input.GetMouseButton(0) && coolDown <= 0 && ammo > 0 && !isReloading)
+            {
+                float offsetX = Random.Range(-0.5f, 0.5f);
+
+                flash.SetActive(true);
+                StartCoroutine(FlashTime());
+                CameraShake.Instance.ShakeCamera(1f, 0.25f);
+                shoot.Play();
+                ammo--;
+
+                Instantiate(bullet, new Vector3(firePoint.transform.position.x + offsetX, firePoint.transform.position.y), transform.rotation);
+                rb.AddForce(transform.rotation * Vector2.up * recoil, ForceMode2D.Force);
+
+                coolDown = startCoolDown;
+            }
         }
+        
 
         if (Input.GetKeyDown(KeyCode.R) && !isReloading)
         {
@@ -90,6 +155,87 @@ public class PlayerAimWeapon : MonoBehaviour
             isReloading = true;
             StartCoroutine(ReloadTime());
         }
+    }
+
+    public void SetGun()
+    {
+        if (playerC.currentGun == CurrentGun.pistol)
+        {
+            guns[0].SetActive(true);
+            guns[1].SetActive(false);
+            guns[2].SetActive(false);
+            guns[3].SetActive(false);
+            guns[4].SetActive(false);
+
+            sr.sprite = lightPlayer;
+            startCoolDown = 0.25f;
+            maxAmmo = 15;
+            ammo = maxAmmo;
+        }
+
+        else if (playerC.currentGun == CurrentGun.shotgun)
+        {
+            guns[0].SetActive(false);
+            guns[1].SetActive(true);
+            guns[2].SetActive(false);
+            guns[3].SetActive(false);
+            guns[4].SetActive(false);
+
+            sr.sprite = lightPlayer;
+            startCoolDown = 0.5f;
+            maxAmmo = 3;
+            ammo = maxAmmo;
+        }
+
+        else if (playerC.currentGun == CurrentGun.sniper)
+        {
+            guns[0].SetActive(false);
+            guns[1].SetActive(false);
+            guns[2].SetActive(true);
+            guns[3].SetActive(false);
+            guns[4].SetActive(false);
+
+            sr.sprite = heavyPlayer;
+            startCoolDown = 1f;
+            maxAmmo = 1;
+            ammo = maxAmmo;
+        }
+
+        else if (playerC.currentGun == CurrentGun.minigun)
+        {
+            guns[0].SetActive(false);
+            guns[1].SetActive(false);
+            guns[2].SetActive(false);
+            guns[3].SetActive(true);
+            guns[4].SetActive(false);
+
+            sr.sprite = heavyPlayer;
+            startCoolDown = 0.1f;
+            maxAmmo = 100;
+            ammo = maxAmmo;
+        }
+
+        else if (playerC.currentGun == CurrentGun.RPG)
+        {
+            guns[0].SetActive(false);
+            guns[1].SetActive(false);
+            guns[2].SetActive(false);
+            guns[3].SetActive(false);
+            guns[4].SetActive(true);
+
+            sr.sprite = heavyPlayer;
+            startCoolDown = 1.5f;
+            maxAmmo = 1;
+            ammo = maxAmmo;
+        }
+
+        flash.SetActive(true);
+        flash = GameObject.Find("Flash");
+        flash.SetActive(false);
+
+        firePoint = GameObject.Find("FirePoint");
+
+        Debug.Log("current gun set to " + playerC.currentGun);
     }
 
     IEnumerator FlashTime()
@@ -106,5 +252,6 @@ public class PlayerAimWeapon : MonoBehaviour
         GetComponent<PlayerController>().speed *= 2;
         isReloading = false;
         ammo = maxAmmo;
+        rocket.SetActive(true);
     }
 }

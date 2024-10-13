@@ -6,6 +6,8 @@ using TDGP;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum CurrentGun { pistol, shotgun, sniper, minigun, RPG }
+
 public class PlayerController : MonoBehaviour
 {
     // Stats/Floats
@@ -21,8 +23,7 @@ public class PlayerController : MonoBehaviour
     private bool isPlaying;
     private bool lightActive;
     private bool soundPlayed;
-    public bool onFloor = true;
-    public bool onGround = false;
+    public bool onFloor = true, onGround = false, inShop = false, shopOpen = false;
 
     // Player Components
     private Rigidbody2D rb;
@@ -39,7 +40,10 @@ public class PlayerController : MonoBehaviour
     public AudioClip indoorAmb;
 
     // GameObjects
-    public GameObject cam, flashLight;
+    public GameObject cam, flashLight, shopText, shop, mainUI;
+
+    // Current equipped gun
+    public CurrentGun currentGun;
 
     // UI
     public Image battery;
@@ -59,8 +63,19 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Movement();
-        LightToggle();
-        LightCharge();
+
+        if (!shopOpen)
+        {
+            LightToggle();
+            LightCharge();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q) && inShop)
+        {
+            shopOpen = !shopOpen;
+            shop.SetActive(shopOpen);
+            mainUI.SetActive(!shopOpen);
+        }
     }
 
     // Player Movement in all directions
@@ -71,7 +86,16 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // Moves player in direction of inputs
-        rb.velocity = new Vector2(horizontalInput * speed, verticalInput * speed);
+
+        if (!shopOpen)
+        {
+            rb.velocity = new Vector2(horizontalInput * speed, verticalInput * speed);
+        }
+
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
 
         // Stops Speed Increases when using diagonal inputs (like W and D together)
         if (rb.velocity.magnitude > maxSpeed)
@@ -208,6 +232,12 @@ public class PlayerController : MonoBehaviour
             ambientAudio.Stop();
             ambientAudio.PlayOneShot(indoorAmb);
         }
+
+        if (collision.gameObject.CompareTag("Shop") && collision.IsTouching(col))
+        {
+            shopText.SetActive(true);
+            inShop = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -220,6 +250,12 @@ public class PlayerController : MonoBehaviour
             onGround = true;
             ambientAudio.Stop();
             ambientAudio.PlayOneShot(outsideAmb);
-    }
+        }
+
+        if (collision.gameObject.CompareTag("Shop"))
+        {
+            shopText.SetActive(false);
+            inShop = false;
+        }
     }
 }
