@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ShopManager : MonoBehaviour
 {
@@ -152,6 +153,8 @@ public class ShopManager : MonoBehaviour
         {
             cantAfford.Play();
         }
+
+        playerscript.coinsText.text = playerscript.coins.ToString();
     }
 
 }

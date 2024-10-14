@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 5719727906704246867}
   - component: {fileID: 2234973870535508157}
   - component: {fileID: 1753824026265270945}
+  - component: {fileID: 1375321007207537953}
   - component: {fileID: 6515580424122865479}
   - component: {fileID: 4827969645436116259}
-  - component: {fileID: 1375321007207537953}
   - component: {fileID: 6151158653055139501}
   - component: {fileID: 4320293909466111376}
   - component: {fileID: 2051442094520281230}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Zombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -156,6 +156,42 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.007180786, y: -0.19404411}
   m_Radius: 0.51293755
+--- !u!58 &1375321007207537953
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6260141909868481665}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.005000019, y: 0.7408083}
+  m_Radius: 0.54834116
 --- !u!95 &6515580424122865479
 Animator:
   serializedVersion: 7
@@ -195,45 +231,9 @@ MonoBehaviour:
   coin: {fileID: 2527108289097172329, guid: 3406af9d507186949bf54a74647d4fb8, type: 3}
   deathSound: {fileID: 4320293909466111376}
   hit: {fileID: 2051442094520281230}
-  maxHealth: 3
+  maxHealth: 15
   health: 0
   coolDown: 0
---- !u!58 &1375321007207537953
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6260141909868481665}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.005000019, y: 0.7408083}
-  m_Radius: 0.54834116
 --- !u!82 &6151158653055139501
 AudioSource:
   m_ObjectHideFlags: 0

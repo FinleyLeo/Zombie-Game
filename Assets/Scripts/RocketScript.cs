@@ -6,19 +6,26 @@ using UnityEngine;
 public class RocketScript : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private SpriteRenderer sr;
+
+    public Transform rocket;
 
     public float speed;
+    public float explodeRadius;
+
+    public GameObject explosion;
 
     private bool isDestroyed;
 
     private KillTime timer;
 
+    public LayerMask enemyLayers;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
+
+        
 
         timer = GetComponent<KillTime>();
 
@@ -34,4 +41,30 @@ public class RocketScript : MonoBehaviour
         }
     }
 
+    void Explosion()
+    {
+        Instantiate(explosion, rocket.transform.position, Quaternion.identity);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(rocket.transform.position, explodeRadius, enemyLayers);
+        
+        foreach(Collider2D e in hitEnemies)
+        {
+            e.GetComponent<EnemyScript>().TakeDamage(5);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy"))
+        {
+            Explosion();
+            CameraShake.Instance.ShakeCamera(4f, 0.5f);
+            isDestroyed = true;
+            gameObject.SetActive(false);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(rocket.transform.position, explodeRadius);
+    }
 }

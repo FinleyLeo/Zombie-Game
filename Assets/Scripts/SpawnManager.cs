@@ -51,7 +51,7 @@ public class SpawnManager : MonoBehaviour
                 SpawnWave(wave);
             }
 
-            else if (waveCount % 5  == 0 && waveCount != 0)
+            if (waveCount % 5 == 0 && waveCount != 0)
             {
                 entranceBlock.SetActive(false);
                 waveTimer.SetActive(true);

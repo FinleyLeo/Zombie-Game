@@ -28,6 +28,8 @@ public class PlayerAimWeapon : MonoBehaviour
     private float startCoolDown = 0.25f;
     public float maxAmmo = 10, ammo;
     public float recoil;
+    public float damage = 3;
+    private float shootDir;
 
     private bool isReloading;
 
@@ -89,6 +91,8 @@ public class PlayerAimWeapon : MonoBehaviour
         Vector3 aimDir = (mousePos - transform.position).normalized;
         float zAngle = Mathf.Atan2(aimDir.x, aimDir.y) * Mathf.Rad2Deg;
 
+        shootDir = zAngle;
+
         transform.eulerAngles = new Vector3(0, 0, -zAngle);
     }
 
@@ -103,11 +107,20 @@ public class PlayerAimWeapon : MonoBehaviour
                 CameraShake.Instance.ShakeCamera(1f, 0.25f);
                 ammo--;
 
-                if (playerC.currentGun == CurrentGun.pistol)
+                if (playerC.currentGun != CurrentGun.RPG && playerC.currentGun != CurrentGun.shotgun)
                 {
                     shoot.Play();
 
                     Instantiate(bullet, firePoint.transform.position, transform.rotation);
+                }
+
+                else if (playerC.currentGun == CurrentGun.shotgun)
+                {
+                    shoot.Play();
+
+                    Instantiate(bullet, firePoint.transform.position, transform.rotation);
+                    Instantiate(bullet, firePoint.transform.position, Quaternion.Euler(transform.rotation.x, transform.rotation.y, -shootDir - 10));
+                    Instantiate(bullet, firePoint.transform.position, Quaternion.Euler(transform.rotation.x, transform.rotation.y, -shootDir + 10));
                 }
                 
                 else if (playerC.currentGun == CurrentGun.RPG)
@@ -116,7 +129,7 @@ public class PlayerAimWeapon : MonoBehaviour
 
                     rocket.SetActive(false);
 
-                    Instantiate(rocketPrefab, firePoint.transform.position, transform.rotation);
+                    Instantiate(rocketPrefab, new Vector3(firePoint.transform.position.x, firePoint.transform.position.y, firePoint.transform.position.z - 35), transform.rotation);
                 }
 
                 coolDown = startCoolDown;
@@ -131,16 +144,14 @@ public class PlayerAimWeapon : MonoBehaviour
         else if (playerC.currentGun == CurrentGun.minigun)
         {
             if (Input.GetMouseButton(0) && coolDown <= 0 && ammo > 0 && !isReloading)
-            {
-                float offsetX = Random.Range(-0.5f, 0.5f);
-
+            {   
                 flash.SetActive(true);
                 StartCoroutine(FlashTime());
-                CameraShake.Instance.ShakeCamera(1f, 0.25f);
+                CameraShake.Instance.ShakeCamera(2f, 0.25f);
                 shoot.Play();
                 ammo--;
 
-                Instantiate(bullet, new Vector3(firePoint.transform.position.x + offsetX, firePoint.transform.position.y), transform.rotation);
+                Instantiate(bullet, new Vector3(firePoint.transform.position.x, firePoint.transform.position.y), Quaternion.Euler(transform.rotation.x, transform.rotation.y, -shootDir + Random.Range(-15f, 15f)));
                 rb.AddForce(transform.rotation * Vector2.up * recoil, ForceMode2D.Force);
 
                 coolDown = startCoolDown;
@@ -169,6 +180,7 @@ public class PlayerAimWeapon : MonoBehaviour
 
             sr.sprite = lightPlayer;
             startCoolDown = 0.25f;
+            damage = 3;
             maxAmmo = 15;
             ammo = maxAmmo;
         }
@@ -183,6 +195,7 @@ public class PlayerAimWeapon : MonoBehaviour
 
             sr.sprite = lightPlayer;
             startCoolDown = 0.5f;
+            damage = 3;
             maxAmmo = 3;
             ammo = maxAmmo;
         }
@@ -195,8 +208,11 @@ public class PlayerAimWeapon : MonoBehaviour
             guns[3].SetActive(false);
             guns[4].SetActive(false);
 
+            cam.GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize = 8;
+
             sr.sprite = heavyPlayer;
             startCoolDown = 1f;
+            damage = 15;
             maxAmmo = 1;
             ammo = maxAmmo;
         }
@@ -211,7 +227,8 @@ public class PlayerAimWeapon : MonoBehaviour
 
             sr.sprite = heavyPlayer;
             startCoolDown = 0.1f;
-            maxAmmo = 100;
+            damage = 2;
+            maxAmmo = 30;
             ammo = maxAmmo;
         }
 
@@ -229,13 +246,16 @@ public class PlayerAimWeapon : MonoBehaviour
             ammo = maxAmmo;
         }
 
+        if (playerC.currentGun != CurrentGun.sniper)
+        {
+            cam.GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize = 6;
+        }
+
         flash.SetActive(true);
         flash = GameObject.Find("Flash");
         flash.SetActive(false);
 
         firePoint = GameObject.Find("FirePoint");
-
-        Debug.Log("current gun set to " + playerC.currentGun);
     }
 
     IEnumerator FlashTime()

@@ -7,6 +7,8 @@ public class BulletScript : MonoBehaviour
 {
     private Rigidbody2D rb;
     private SpriteRenderer sr;
+    private GameObject player;
+    private PlayerAimWeapon playerAim;
 
     public float speed;
 
@@ -23,6 +25,9 @@ public class BulletScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+
+        player = GameObject.Find("Player");
+        playerAim = player.GetComponent<PlayerAimWeapon>();
 
         timer = GetComponent<KillTime>();
 
@@ -42,7 +47,7 @@ public class BulletScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.GetComponent<EnemyScript>().TakeDamage(1);
+            collision.GetComponent<EnemyScript>().TakeDamage(playerAim.damage);
             Instantiate(bloodSplatter, transform.position, transform.rotation);
             Destroy(gameObject);
         }

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TDGP;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     // Booleans
     private bool isPlaying;
-    private bool lightActive;
+    public bool lightActive;
     private bool soundPlayed;
     public bool onFloor = true, onGround = false, inShop = false, shopOpen = false;
 
@@ -49,6 +50,8 @@ public class PlayerController : MonoBehaviour
     public Image battery;
     public Animator batteryAnim;
 
+    public TextMeshProUGUI coinsText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -75,6 +78,7 @@ public class PlayerController : MonoBehaviour
             shopOpen = !shopOpen;
             shop.SetActive(shopOpen);
             mainUI.SetActive(!shopOpen);
+            coinsText.text = coins.ToString();
         }
     }
 
@@ -155,7 +159,7 @@ public class PlayerController : MonoBehaviour
         {
             flashLight.SetActive(false);
 
-            if (cam.GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize > 6)
+            if (cam.GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize > 6 && currentGun != CurrentGun.sniper)
             {
                 cam.GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize -= 4f * Time.deltaTime;
             }

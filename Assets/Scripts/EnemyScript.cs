@@ -86,13 +86,13 @@ public class EnemyScript : MonoBehaviour
         isAttacking = false;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         hit.Play();
         CameraShake.Instance.ShakeCamera(0.5f, 0.25f);
         health -= damage;
 
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
             foreach (Collider2D c in GetComponents<Collider2D>())
             {
