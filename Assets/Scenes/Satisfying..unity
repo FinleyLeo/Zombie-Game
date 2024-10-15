@@ -4437,8 +4437,8 @@ Transform:
   m_GameObject: {fileID: 78015746}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.016, y: -0.12, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.42209318}
+  m_LocalPosition: {x: -0.17528, y: 0.19, z: 0}
+  m_LocalScale: {x: 3.6855, y: 3.6855, z: 3.1112487}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1701747547}
@@ -43111,7 +43111,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 1.25
+  m_Radius: 12.5
 --- !u!1001 &1035477367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76642,8 +76642,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 6316845048193857919, guid: 52c8f9961c8a40d4db2bb241ecd297d0, type: 3}
-  flash: {fileID: 348236793}
-  firePoint: {fileID: 424477292}
+  rocket: {fileID: 0}
+  rocketPrefab: {fileID: 0}
   cam: {fileID: 2085856081}
   _cam: {fileID: 2085856085}
   shoot: {fileID: 1871828741}
@@ -76651,6 +76651,11 @@ MonoBehaviour:
   reload: {fileID: 8300000, guid: 17c5c4ae031233c4cb4e6b1c133d9614, type: 3}
   maxAmmo: 10
   ammo: 0
+  recoil: 0
+  damage: 3
+  lightPlayer: {fileID: 0}
+  heavyPlayer: {fileID: 0}
+  guns: []
 --- !u!58 &1871828744
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -76732,8 +76737,11 @@ MonoBehaviour:
   maxSpeed: 7
   coins: 0
   lightCharge: 60
+  lightActive: 0
   onFloor: 1
   onGround: 0
+  inShop: 0
+  shopOpen: 0
   audioSource: {fileID: 1871828740}
   ambientAudio: {fileID: 0}
   floorWalking: {fileID: 1871828742}
@@ -76744,8 +76752,13 @@ MonoBehaviour:
   indoorAmb: {fileID: 0}
   cam: {fileID: 2085856081}
   flashLight: {fileID: 861094381}
+  shopText: {fileID: 0}
+  shop: {fileID: 0}
+  mainUI: {fileID: 0}
+  currentGun: 0
   battery: {fileID: 0}
   batteryAnim: {fileID: 0}
+  coinsText: {fileID: 0}
 --- !u!212 &1871828747
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -76787,12 +76800,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -722046738, guid: 7910a0c1ce17e744cbe08625d4fc8a38, type: 3}
+  m_Sprite: {fileID: 2251026039344812895, guid: f6eebf13f77e91d4b8ee16dd0790ad98,
+    type: 3}
   m_Color: {r: 0.5235849, g: 1, b: 0.84531975, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.56, y: 0.81}
+  m_Size: {x: 5.62, y: 8.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -76807,8 +76821,8 @@ Transform:
   m_GameObject: {fileID: 1871828739}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.75, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalPosition: {x: -0.25000006, y: -0.9999999, z: 0}
+  m_LocalScale: {x: 0.2757425, y: 0.28327975, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 78015747}
@@ -85360,7 +85374,7 @@ Transform:
   m_GameObject: {fileID: 2085856081}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.75, z: -10}
+  m_LocalPosition: {x: -0.25000006, y: -0.9999999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

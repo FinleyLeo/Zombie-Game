@@ -41,31 +41,39 @@ public class SpawnManager : MonoBehaviour
     {
         zombieCount = FindObjectsOfType<EnemyScript>().Length;
 
+
         if (zombieCount == 0 && playerController.onGround)
         {
-            if (waveCount % 5 != 0 || waveCount == 0)
+            waveCheck();
+        }
+    }
+
+    void waveCheck()
+    {
+        if ((waveCount % 5 != 0) || (waveCount == 0))
+        {
+            if (zombieCount == 0 && playerController.onGround)
             {
                 entranceBlock.SetActive(true);
                 wave++;
                 waveCount++;
                 SpawnWave(wave);
             }
+        }
 
-            if (waveCount % 5 == 0 && waveCount != 0)
+        else if ((waveCount % 5 == 0) && (waveCount != 0))
+        {
+            entranceBlock.SetActive(false);
+            waveTimer.SetActive(true);
+
+            if (timerScript.timer <= 0)
             {
-                entranceBlock.SetActive(false);
-                waveTimer.SetActive(true);
-
-                if (timerScript.timer <= 0)
-                {
-                    entranceBlock.SetActive(true);
-                    wave++;
-                    waveCount++;
-                    waveTimer.SetActive(false);
-                    SpawnWave(wave);
-                }
+                entranceBlock.SetActive(true);
+                wave++;
+                waveCount++;
+                waveTimer.SetActive(false);
+                SpawnWave(wave);
             }
-            
         }
     }
 
