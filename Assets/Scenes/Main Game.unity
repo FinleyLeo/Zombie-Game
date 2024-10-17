@@ -7831,6 +7831,7 @@ GameObject:
   - component: {fileID: 664997691}
   - component: {fileID: 664997692}
   - component: {fileID: 664997693}
+  - component: {fileID: 664997694}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -7935,6 +7936,7 @@ MonoBehaviour:
   ambientAudio: {fileID: 664997693}
   floorWalking: {fileID: 664997688}
   grassWalking: {fileID: 664997691}
+  staticS: {fileID: 664997694}
   coinPickup: {fileID: 8300000, guid: 3944655bedef68c42a349e1a3b2770b4, type: 3}
   Flashswitch: {fileID: 8300000, guid: d0926a25a0909c14bb70b2977c81a708, type: 3}
   outsideAmb: {fileID: 8300000, guid: 745f791456175244d9c2aa376adf8494, type: 3}
@@ -7948,6 +7950,7 @@ MonoBehaviour:
   battery: {fileID: 147930100}
   batteryAnim: {fileID: 147930102}
   coinsText: {fileID: 1053331406}
+  PP: {fileID: 583150698}
 --- !u!58 &664997685
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8030,8 +8033,10 @@ MonoBehaviour:
   cam: {fileID: 519420028}
   _cam: {fileID: 519420031}
   shoot: {fileID: 664997689}
+  rocketShoot: {fileID: 8300000, guid: 7abeb346c73a2fd458ed2e331cccc57f, type: 3}
   empty: {fileID: 8300000, guid: b9cb042df0f48844da86eb974ba61f08, type: 3}
   reload: {fileID: 8300000, guid: 17c5c4ae031233c4cb4e6b1c133d9614, type: 3}
+  rpgReload: {fileID: 8300000, guid: f28736d9499d11444acb9cdc9f9c5aa6, type: 3}
   maxAmmo: 15
   ammo: 0
   recoil: -3000
@@ -8446,6 +8451,102 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &664997694
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664997681}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 7b21d66bd2b38b94f8938364e06abb3f, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -21131,6 +21232,7 @@ MonoBehaviour:
   maxYRange: 45
   zombieCount: 0
   wave: 2
+  breakCheck: 0
 --- !u!4 &1806082494
 Transform:
   m_ObjectHideFlags: 0

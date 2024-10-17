@@ -21,6 +21,7 @@ public class SpawnManager : MonoBehaviour
     public int zombieCount;
     public int wave = 2;
     private int waveCount;
+    public int breakCheck;
 
     private PlayerController playerController;
 
@@ -33,6 +34,7 @@ public class SpawnManager : MonoBehaviour
         timerScript = waveTimer.GetComponent<WaveTimer>();
 
         waveCount = wave - 2;
+        breakCheck = waveCount;
         waveCounter.text = waveCount.ToString();
     }
 
@@ -50,28 +52,32 @@ public class SpawnManager : MonoBehaviour
 
     void waveCheck()
     {
-        if ((waveCount % 5 != 0) || (waveCount == 0))
+        if (zombieCount == 0 && playerController.onGround)
         {
-            if (zombieCount == 0 && playerController.onGround)
+            if (breakCheck == 5) 
             {
-                entranceBlock.SetActive(true);
-                wave++;
-                waveCount++;
-                SpawnWave(wave);
+                entranceBlock.SetActive(false);
+                waveTimer.SetActive(true);
+
+                if (timerScript.timer <= 0)
+                {
+                    entranceBlock.SetActive(true);
+                    wave++;
+                    waveCount++;
+                    waveTimer.SetActive(false);
+                    SpawnWave(wave);
+                    breakCheck = 0;
+                    timerScript.timer = 15;
+                    breakCheck++;
+                }
             }
-        }
 
-        else if ((waveCount % 5 == 0) && (waveCount != 0))
-        {
-            entranceBlock.SetActive(false);
-            waveTimer.SetActive(true);
-
-            if (timerScript.timer <= 0)
+            else if (breakCheck != 5)
             {
                 entranceBlock.SetActive(true);
                 wave++;
                 waveCount++;
-                waveTimer.SetActive(false);
+                breakCheck++;
                 SpawnWave(wave);
             }
         }

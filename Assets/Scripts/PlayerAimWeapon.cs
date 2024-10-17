@@ -21,8 +21,10 @@ public class PlayerAimWeapon : MonoBehaviour
     public Camera _cam;
 
     public AudioSource shoot;
+    public AudioClip rocketShoot;
     public AudioClip empty;
     public AudioClip reload;
+    public AudioClip rpgReload;
 
     private float coolDown;
     private float startCoolDown = 0.25f;
@@ -125,7 +127,7 @@ public class PlayerAimWeapon : MonoBehaviour
                 
                 else if (playerC.currentGun == CurrentGun.RPG)
                 {
-                    shoot.Play();
+                    shoot.PlayOneShot(rocketShoot);
 
                     rocket.SetActive(false);
 
@@ -159,12 +161,20 @@ public class PlayerAimWeapon : MonoBehaviour
         }
         
 
-        if (Input.GetKeyDown(KeyCode.R) && !isReloading)
+        if (Input.GetKeyDown(KeyCode.R) && !isReloading && playerC.currentGun != CurrentGun.RPG)
         {
             shoot.PlayOneShot(reload);
             GetComponent<PlayerController>().speed /= 2;
             isReloading = true;
             StartCoroutine(ReloadTime());
+        }
+
+        else if (Input.GetKeyDown(KeyCode.R) && !isReloading && playerC.currentGun == CurrentGun.RPG)
+        {
+            shoot.PlayOneShot(rpgReload);
+            GetComponent<PlayerController>().speed /= 2;
+            isReloading = true;
+            StartCoroutine(RPGreloadTime());
         }
     }
 
@@ -268,6 +278,16 @@ public class PlayerAimWeapon : MonoBehaviour
     IEnumerator ReloadTime()
     {
         yield return new WaitForSeconds(reload.length);
+
+        GetComponent<PlayerController>().speed *= 2;
+        isReloading = false;
+        ammo = maxAmmo;
+        rocket.SetActive(true);
+    }
+
+    IEnumerator RPGreloadTime()
+    {
+        yield return new WaitForSeconds(rpgReload.length);
 
         GetComponent<PlayerController>().speed *= 2;
         isReloading = false;

@@ -14,9 +14,15 @@ using System.Collections;
 public class PPFXAutodestruct : MonoBehaviour {
 	
 	ParticleSystem ps;
+
+	public AudioSource explosionSound;
 	
 	void Start () {
+
 		ps = this.GetComponent<ParticleSystem>();
+
+		explosionSound.Play();
+
 	 	if(ps)
 	 	{         
 		 	#if UNITY_5_5_OR_NEWER

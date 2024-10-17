@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class RocketScript : MonoBehaviour
 {
-    private Rigidbody2D rb;
-
     public Transform rocket;
 
     public float speed;
     public float explodeRadius;
 
     public GameObject explosion;
+
+    public AudioSource missileFly;
 
     private bool isDestroyed;
 
@@ -23,11 +23,9 @@ public class RocketScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-
-        
-
         timer = GetComponent<KillTime>();
+
+        missileFly.Play();
 
         StartCoroutine(timer.KillTimer(0.5f));
     }
@@ -59,7 +57,6 @@ public class RocketScript : MonoBehaviour
             Explosion();
             CameraShake.Instance.ShakeCamera(4f, 0.5f);
             isDestroyed = true;
-            gameObject.SetActive(false);
         }
     }
 

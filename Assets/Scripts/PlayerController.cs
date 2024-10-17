@@ -4,7 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TDGP;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 
 public enum CurrentGun { pistol, shotgun, sniper, minigun, RPG }
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour
     public AudioSource ambientAudio;
     public AudioSource floorWalking;
     public AudioSource grassWalking;
+    public AudioSource staticS;
     public AudioClip coinPickup;
     public AudioClip Flashswitch;
     public AudioClip outsideAmb;
@@ -52,11 +55,20 @@ public class PlayerController : MonoBehaviour
 
     public TextMeshProUGUI coinsText;
 
+    public GameObject PP;
+    private PostProcessVolume postProcessVolume;
+    private Grain grain;
+    private Vignette vign;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+
+        postProcessVolume = PP.GetComponent<PostProcessVolume>();
+        postProcessVolume.profile.TryGetSettings(out grain);
+        postProcessVolume.profile.TryGetSettings(out vign);
 
         lightActive = false;
         health = maxHealth;
@@ -66,6 +78,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Movement();
+
+        if (health < maxHealth)
+        {
+            health += 0.01f * Time.deltaTime;
+        }
+
+        HealthCheck();
 
         if (!shopOpen)
         {
@@ -190,7 +209,6 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        HealthCheck();
 
         if (health <= 0)
         {
@@ -200,21 +218,127 @@ public class PlayerController : MonoBehaviour
     }
 
     // Checks for health value (will be used later for effects like heartbeat)
-    void HealthCheck()
+    public void HealthCheck()
     {
         if (health < 6 && health >= 4)
         {
+            if (staticS.volume < 0.3f)
+            {
+                staticS.volume += 0.1f * Time.deltaTime;
+            }
+
+            else if (staticS.volume > 0.3f)
+            {
+                staticS.volume -= 0.1f * Time.deltaTime;
+            }
+
+            if (grain.intensity.value < 0.6f)
+            {
+                grain.intensity.value += 0.1f * Time.deltaTime;
+            }
+
+            else if (grain.intensity.value > 0.6f)
+            {
+                grain.intensity.value -= 0.1f * Time.deltaTime;
+            }
+
+            if (vign.intensity.value < 0.4f)
+            {
+                vign.intensity.value += 0.1f * Time.deltaTime;
+            }
+
+            else if (vign.intensity.value > 0.4f)
+            {
+                vign.intensity.value -= 0.1f * Time.deltaTime;
+            }
+
             print("you are slightly hurt, " + health + " health left");
         }
 
         else if (health < 4 && health >= 2)
         {
-            print("you are very hurt, " + health + " health left");
+            if (staticS.volume < 0.4f)
+            {
+                staticS.volume += 0.1f * Time.deltaTime;
+            }
+
+            else if (staticS.volume > 0.4f)
+            {
+                staticS.volume -= 0.1f * Time.deltaTime;
+            }
+
+            if (grain.intensity.value < 0.8f)
+            {
+                grain.intensity.value += 0.1f * Time.deltaTime;
+            }
+
+            else if (grain.intensity.value > 0.8f)
+            {
+                grain.intensity.value -= 0.1f * Time.deltaTime;
+            }
+
+            if (vign.intensity.value < 0.45f)
+            {
+                vign.intensity.value += 0.1f * Time.deltaTime;
+            }
+
+            else if (vign.intensity.value > 0.45f)
+            {
+                vign.intensity.value -= 0.1f * Time.deltaTime;
+            }
         }
 
         else if (health < 2 && health > 0)
         {
+            if (staticS.volume < 0.5f)
+            {
+                staticS.volume += 0.1f * Time.deltaTime;
+            }
+
+            else if (staticS.volume > 0.5f)
+            {
+                staticS.volume -= 0.1f * Time.deltaTime;
+            }
+
+            if (grain.intensity.value < 1f)
+            {
+                grain.intensity.value += 0.1f * Time.deltaTime;
+            }
+
+            else if (grain.intensity.value > 1f)
+            {
+                grain.intensity.value -= 0.1f * Time.deltaTime;
+            }
+
+            if (vign.intensity.value < 0.5f)
+            {
+                vign.intensity.value += 0.1f * Time.deltaTime;
+            }
+
+            else if (vign.intensity.value > 0.5f)
+            {
+                vign.intensity.value -= 0.1f * Time.deltaTime;
+            }
+
             print("you are close to death, " + health + " health left");
+        }
+
+        else if (health >= 6)
+        {
+            if (staticS.volume > 0)
+            {
+                staticS.volume -= 0.2f * Time.deltaTime;
+            }
+
+            if (grain.intensity.value > 0.5f)
+            {
+                grain.intensity.value -= 0.2f * Time.deltaTime;
+            }
+
+            if (vign.intensity.value > 0.35f)
+            {
+                vign.intensity.value -= 0.2f * Time.deltaTime;
+            }
         }
     }
 
