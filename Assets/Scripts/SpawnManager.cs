@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     private GameObject player;
-    public GameObject zombie;
+    public GameObject zombie, zomboss;
     public GameObject waveTimer;
     private WaveTimer timerScript;
 
@@ -17,11 +17,15 @@ public class SpawnManager : MonoBehaviour
     public float xRange;
     public float minYRange;
     public float maxYRange;
+    public float bossHealth;
 
     public int zombieCount;
     public int wave = 2;
     private int waveCount;
     public int breakCheck;
+    public int bossCheck;
+
+    public bool bossSpawned;
 
     private PlayerController playerController;
 
@@ -35,14 +39,16 @@ public class SpawnManager : MonoBehaviour
 
         waveCount = wave - 2;
         breakCheck = waveCount;
+        bossCheck = waveCount;
         waveCounter.text = waveCount.ToString();
+
+        bossHealth = 400;
     }
 
     // Update is called once per frame
     void Update()
     {
         zombieCount = FindObjectsOfType<EnemyScript>().Length;
-
 
         if (zombieCount == 0 && playerController.onGround)
         {
@@ -54,32 +60,53 @@ public class SpawnManager : MonoBehaviour
     {
         if (zombieCount == 0 && playerController.onGround)
         {
-            if (breakCheck == 5) 
+            if (breakCheck == 5 && bossCheck != 10) 
             {
-                entranceBlock.SetActive(false);
-                waveTimer.SetActive(true);
-
-                if (timerScript.timer <= 0)
-                {
-                    entranceBlock.SetActive(true);
-                    wave++;
-                    waveCount++;
-                    waveTimer.SetActive(false);
-                    SpawnWave(wave);
-                    breakCheck = 0;
-                    timerScript.timer = 15;
-                    breakCheck++;
-                }
+                waveBreak();
             }
 
-            else if (breakCheck != 5)
+            else if (breakCheck != 5 && bossCheck != 10)
             {
                 entranceBlock.SetActive(true);
                 wave++;
                 waveCount++;
                 breakCheck++;
+                bossCheck++;
                 SpawnWave(wave);
             }
+
+            else if (bossCheck == 10 && !bossSpawned)
+            {
+                bossSpawned = true;
+                entranceBlock.SetActive(true);
+                Instantiate(zomboss, GenerateSpawnPos(), Quaternion.identity);
+                bossHealth = zomboss.GetComponent<EnemyScript>().health;
+
+                if (bossHealth == 0)
+                {
+                    waveBreak();
+                    bossSpawned = false;
+                }
+            }
+        }
+    }
+
+    void waveBreak()
+    {
+        entranceBlock.SetActive(false);
+        waveTimer.SetActive(true);
+
+        if (timerScript.timer <= 0)
+        {
+            entranceBlock.SetActive(true);
+            wave++;
+            waveCount++;
+            timerScript.timer = 15;
+            waveTimer.SetActive(false);
+            SpawnWave(wave);
+            breakCheck = 0;
+            breakCheck++;
+            bossCheck++;
         }
     }
 

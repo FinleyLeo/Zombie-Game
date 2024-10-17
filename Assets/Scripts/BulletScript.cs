@@ -60,5 +60,4 @@ public class BulletScript : MonoBehaviour
             isDestroyed = true;
         }
     }
-
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class EnemyScript : MonoBehaviour
     private Transform target;
 
     private GameObject player;
-    public GameObject explosion, coin;
+    public GameObject enemyExplosion, explosion, coin;
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -22,12 +23,15 @@ public class EnemyScript : MonoBehaviour
     public float maxHealth = 3;
     public float health;
     public float coolDown;
+    public float explodeRadius;
 
     private int coinQuantity;
 
     private bool isAttacking;
     private bool isColliding;
     private bool isDead;
+
+    public LayerMask layers;
 
     // Start is called before the first frame update
     void Start()
@@ -107,8 +111,8 @@ public class EnemyScript : MonoBehaviour
             }
 
             deathSound.Play();
-            CameraShake.Instance.ShakeCamera(2f, 0.25f);
-            Instantiate(explosion, transform.position, Quaternion.identity);
+            CameraShake.Instance.ShakeCamera(2f, 0.5f);
+            Instantiate(enemyExplosion, transform.position, Quaternion.identity);
             isDead = true;
             sr.enabled = false;
             StartCoroutine(KillTime());
@@ -138,5 +142,10 @@ public class EnemyScript : MonoBehaviour
         {
             isColliding = false;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, explodeRadius);
     }
 }
