@@ -222,12 +222,12 @@ public class PlayerController : MonoBehaviour
     {
         if (health < 6 && health >= 4)
         {
-            if (staticS.volume < 0.3f)
+            if (staticS.volume < 0.2f)
             {
                 staticS.volume += 0.1f * Time.deltaTime;
             }
 
-            else if (staticS.volume > 0.3f)
+            else if (staticS.volume > 0.2f)
             {
                 staticS.volume -= 0.1f * Time.deltaTime;
             }
@@ -257,12 +257,12 @@ public class PlayerController : MonoBehaviour
 
         else if (health < 4 && health >= 2)
         {
-            if (staticS.volume < 0.4f)
+            if (staticS.volume < 0.3f)
             {
                 staticS.volume += 0.1f * Time.deltaTime;
             }
 
-            else if (staticS.volume > 0.4f)
+            else if (staticS.volume > 0.3f)
             {
                 staticS.volume -= 0.1f * Time.deltaTime;
             }
@@ -290,12 +290,12 @@ public class PlayerController : MonoBehaviour
 
         else if (health < 2 && health > 0)
         {
-            if (staticS.volume < 0.5f)
+            if (staticS.volume < 0.4f)
             {
                 staticS.volume += 0.1f * Time.deltaTime;
             }
 
-            else if (staticS.volume > 0.5f)
+            else if (staticS.volume > 0.4f)
             {
                 staticS.volume -= 0.1f * Time.deltaTime;
             }

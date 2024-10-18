@@ -21234,7 +21234,7 @@ MonoBehaviour:
   maxYRange: 45
   bossHealth: 400
   zombieCount: 0
-  wave: 12
+  wave: 2
   breakCheck: 0
   bossCheck: 0
   bossSpawned: 0

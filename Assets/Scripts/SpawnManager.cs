@@ -11,6 +11,7 @@ public class SpawnManager : MonoBehaviour
     private WaveTimer timerScript;
 
     public GameObject entranceBlock;
+    private GameObject boss;
 
     public TextMeshProUGUI waveCounter;
 
@@ -50,6 +51,11 @@ public class SpawnManager : MonoBehaviour
     {
         zombieCount = FindObjectsOfType<EnemyScript>().Length;
 
+        if (boss != null)
+        {
+            bossHealth = boss.GetComponent<EnemyScript>().health;
+        }
+
         if (zombieCount == 0 && playerController.onGround)
         {
             waveCheck();
@@ -58,36 +64,36 @@ public class SpawnManager : MonoBehaviour
 
     void waveCheck()
     {
-        if (zombieCount == 0 && playerController.onGround)
+        // wave break
+        if (breakCheck == 5 && bossCheck != 10) 
         {
-            if (breakCheck == 5 && bossCheck != 10) 
-            {
-                waveBreak();
-            }
+            waveBreak();
+        }
 
-            else if (breakCheck != 5 && bossCheck != 10)
-            {
-                entranceBlock.SetActive(true);
-                wave++;
-                waveCount++;
-                breakCheck++;
-                bossCheck++;
-                SpawnWave(wave);
-            }
+        // normal wave
+        else if (breakCheck != 5 && bossCheck != 10 && !bossSpawned)
+        {
+            entranceBlock.SetActive(true);
+            wave++;
+            waveCount++;
+            breakCheck++;
+            bossCheck++;
+            SpawnWave(wave);
+        }
 
-            else if (bossCheck == 10 && !bossSpawned)
-            {
-                bossSpawned = true;
-                entranceBlock.SetActive(true);
-                Instantiate(zomboss, GenerateSpawnPos(), Quaternion.identity);
-                bossHealth = zomboss.GetComponent<EnemyScript>().health;
+        // boss wave
+        else if (bossCheck == 10 && !bossSpawned)
+        {
+            bossSpawned = true;
+            entranceBlock.SetActive(true);
+            boss = Instantiate(zomboss, GenerateSpawnPos(), Quaternion.identity);
+            bossCheck = 0;
+            breakCheck = 0;
+        }
 
-                if (bossHealth == 0)
-                {
-                    waveBreak();
-                    bossSpawned = false;
-                }
-            }
+        if (bossHealth <= 0 && zombieCount == 0 && bossSpawned)
+        {
+            waveBreak();
         }
     }
 
@@ -103,6 +109,8 @@ public class SpawnManager : MonoBehaviour
             waveCount++;
             timerScript.timer = 15;
             waveTimer.SetActive(false);
+            bossSpawned = false;
+            bossHealth = 400;
             SpawnWave(wave);
             breakCheck = 0;
             breakCheck++;
