@@ -5,19 +5,18 @@ using UnityEngine;
 
 public class RocketScript : MonoBehaviour
 {
+    [Header("Components")]
     public Transform rocket;
-
-    public float speed;
-    public float explodeRadius;
-
     public GameObject explosion;
-
+    private KillTime timer;
     public AudioSource missileFly;
 
+    [Header("Variables")]
+    public float speed;
+    public float explodeRadius;
     private bool isDestroyed;
 
-    private KillTime timer;
-
+    [Header("LayerMask")]
     public LayerMask enemyLayers;
 
     // Start is called before the first frame update

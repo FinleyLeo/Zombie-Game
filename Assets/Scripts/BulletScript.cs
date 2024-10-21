@@ -5,25 +5,23 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    [Header("Components")]
     private SpriteRenderer sr;
-    private GameObject player;
     private PlayerAimWeapon playerAim;
-
-    public float speed;
-
-    private bool isDestroyed;
-
-    public GameObject bloodSplatter;
-
+    public AudioSource hitWall;
     private KillTime timer;
 
-    public AudioSource hitWall;
+    [Header("Variables")]
+    public float speed;
+    private bool isDestroyed;
+
+    [Header("GameObjects")]
+    public GameObject player;
+    public GameObject bloodSplatter;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
 
         player = GameObject.Find("Player");
@@ -39,7 +37,7 @@ public class BulletScript : MonoBehaviour
     {
         if (!isDestroyed)
         {
-            transform.position += transform.up * speed * Time.deltaTime;
+            transform.position += speed * Time.deltaTime * transform.up;
         }
     }
 

@@ -40,6 +40,8 @@ public class PlayerAimWeapon : MonoBehaviour
 
     public GameObject[] guns;
 
+    public Texture2D cursor;
+
     private void OnEnable()
     {
         CinemachineCore.CameraUpdatedEvent.RemoveListener(OnCameraUpdated);
@@ -61,6 +63,8 @@ public class PlayerAimWeapon : MonoBehaviour
         flash.SetActive(false);
 
         firePoint = GameObject.Find("FirePoint");
+
+        Cursor.SetCursor(cursor, Vector2.zero, CursorMode.Auto);
 
         coolDown = startCoolDown;
     }

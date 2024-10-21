@@ -6,19 +6,20 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-    private Transform target;
-
+    [Header("GameObjects")]
     private GameObject player;
+    private Transform target;
     public GameObject enemyExplosion, explosion, coin;
 
+    [Header("Components")]
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Animator anim;
-
     private AudioSource bite;
     public AudioSource deathSound;
     public AudioSource hit;
 
+    [Header("Variables")]
     private float speed = 3;
     public float maxHealth = 3;
     public float health;
@@ -31,6 +32,7 @@ public class EnemyScript : MonoBehaviour
     private bool isColliding;
     private bool isDead;
 
+    [Header("LayerMask")]
     public LayerMask layers;
 
     // Start is called before the first frame update
@@ -39,7 +41,6 @@ public class EnemyScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
-
         bite = GetComponent<AudioSource>();
 
         player = GameObject.Find("Player");
@@ -61,6 +62,7 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    // Makes enemy face player on Z rotation
     void EnemyDirection()
     {
         Vector3 enemyDir = (target.position - transform.position).normalized;
@@ -69,11 +71,13 @@ public class EnemyScript : MonoBehaviour
         transform.eulerAngles = new Vector3(0, 0, -angle);
     }
 
+    // Moves enemy in direction they're facing
     void EnemyMovement()
     {
         transform.position += speed * Time.deltaTime * transform.up;
     }
 
+    // Manages attack
     void AttackStart()
     {
         isAttacking = true;
@@ -126,6 +130,7 @@ public class EnemyScript : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // Collisions
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && coolDown <= 0 && !isDead)

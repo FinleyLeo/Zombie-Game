@@ -8051,6 +8051,7 @@ MonoBehaviour:
   - {fileID: 1482312925}
   - {fileID: 958686776}
   - {fileID: 1322642324}
+  cursor: {fileID: 2800000, guid: b8e78032f8af0954784d1fe9e5a09187, type: 3}
 --- !u!82 &664997688
 AudioSource:
   m_ObjectHideFlags: 0

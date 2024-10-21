@@ -51,18 +51,13 @@ public class SpawnManager : MonoBehaviour
     {
         zombieCount = FindObjectsOfType<EnemyScript>().Length;
 
-        if (boss != null)
-        {
-            bossHealth = boss.GetComponent<EnemyScript>().health;
-        }
-
         if (zombieCount == 0 && playerController.onGround)
         {
-            waveCheck();
+            WaveCheck();
         }
     }
 
-    void waveCheck()
+    void WaveCheck()
     {
         // wave break
         if (breakCheck == 5 && bossCheck != 10) 
@@ -89,6 +84,11 @@ public class SpawnManager : MonoBehaviour
             boss = Instantiate(zomboss, GenerateSpawnPos(), Quaternion.identity);
             bossCheck = 0;
             breakCheck = 0;
+        }
+
+        if (boss != null)
+        {
+            bossHealth = boss.GetComponent<EnemyScript>().health;
         }
 
         if (bossHealth <= 0 && zombieCount == 0 && bossSpawned)
