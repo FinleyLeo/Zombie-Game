@@ -9753,7 +9753,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.00021502376, y: 0.0031037927}
+  m_Offset: {x: 0.03978496, y: 0.0031037927}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -9763,7 +9763,7 @@ BoxCollider2D:
     drawMode: 2
     adaptiveTiling: 1
   m_AutoTiling: 0
-  m_Size: {x: 0.49030167, y: 0.6089331}
+  m_Size: {x: 0.5703017, y: 0.6089331}
   m_EdgeRadius: 0
 --- !u!61 &745639165
 BoxCollider2D:
@@ -9799,7 +9799,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.00044386834, y: 0.0000005364418}
+  m_Offset: {x: 0.04044386, y: 0.0000005364418}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -9809,7 +9809,7 @@ BoxCollider2D:
     drawMode: 2
     adaptiveTiling: 1
   m_AutoTiling: 0
-  m_Size: {x: 0.49093562, y: 0.6304697}
+  m_Size: {x: 0.5709356, y: 0.6304697}
   m_EdgeRadius: 0
 --- !u!1 &753921363
 GameObject:
@@ -20450,7 +20450,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0026734918, y: -0.00000032782555}
+  m_Offset: {x: 0.042673483, y: -0.00000032782555}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -20460,7 +20460,7 @@ BoxCollider2D:
     drawMode: 2
     adaptiveTiling: 1
   m_AutoTiling: 0
-  m_Size: {x: 0.49658534, y: 0.6104085}
+  m_Size: {x: 0.5765853, y: 0.6104085}
   m_EdgeRadius: 0
 --- !u!61 &1691100342
 BoxCollider2D:
@@ -20496,7 +20496,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.12669614, y: -0.0063146353}
+  m_Offset: {x: 0.039963387, y: -0.0063146353}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -20506,7 +20506,7 @@ BoxCollider2D:
     drawMode: 2
     adaptiveTiling: 1
   m_AutoTiling: 0
-  m_Size: {x: 0.7466077, y: 0.6337534}
+  m_Size: {x: 0.5731422, y: 0.6337534}
   m_EdgeRadius: 0
 --- !u!1 &1693700677
 GameObject:
@@ -21796,7 +21796,7 @@ MonoBehaviour:
   maxYRange: 45
   bossHealth: 400
   zombieCount: 0
-  wave: 12
+  wave: 2
   breakCheck: 0
   bossCheck: 0
   bossSpawned: 0
