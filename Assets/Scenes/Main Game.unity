@@ -8459,8 +8459,9 @@ GameObject:
   - component: {fileID: 664997682}
   - component: {fileID: 664997684}
   - component: {fileID: 664997686}
-  - component: {fileID: 664997685}
   - component: {fileID: 664997687}
+  - component: {fileID: 664997695}
+  - component: {fileID: 664997685}
   - component: {fileID: 664997688}
   - component: {fileID: 664997689}
   - component: {fileID: 664997691}
@@ -8557,7 +8558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 6
-  health: 100
+  health: 6
   speed: 7
   maxSpeed: 7
   coins: 0
@@ -9279,6 +9280,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &664997695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664997681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84cd748dd3a70e946baab1c21feedffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cheatActive: 0
 --- !u!1 &665857793
 GameObject:
   m_ObjectHideFlags: 0

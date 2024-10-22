@@ -11,6 +11,7 @@ public class PlayerAimWeapon : MonoBehaviour
     private PlayerController playerC;
     private SpriteRenderer sr;
     private Rigidbody2D rb;
+    private DONOTTOUCH cheat;
 
     public GameObject bullet;
     public GameObject rocket;
@@ -61,6 +62,7 @@ public class PlayerAimWeapon : MonoBehaviour
         playerC = GetComponent<PlayerController>();
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        cheat = GetComponent<DONOTTOUCH>();
 
         flash = GameObject.Find("Flash");
         flash.SetActive(false);
@@ -94,6 +96,35 @@ public class PlayerAimWeapon : MonoBehaviour
         coolDown -= Time.deltaTime;
 
         ammoText.text = ammo + "/" + maxAmmo;
+
+        if (cheat.cheatActive)
+        {
+            if (damage != 100)
+            {
+                damage = 100;
+            }
+
+            else if (maxAmmo != 1000)
+            {
+                maxAmmo = 1000;
+            }
+
+            else if (playerC.coins != 1000000)
+            {
+                playerC.coins = 1000000;
+            }
+
+            else if (playerC.health != 100)
+            {
+                playerC.health = 100;
+            }
+
+            else if (playerC.speed != 14 && playerC.maxSpeed != 14)
+            {
+                playerC.speed = 14;
+                playerC.maxSpeed = 14;
+            }
+        }
     }
 
     void Aiming()

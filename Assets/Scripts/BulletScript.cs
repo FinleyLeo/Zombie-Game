@@ -6,6 +6,7 @@ public class BulletScript : MonoBehaviour
 {
     [Header("Components")]
     private SpriteRenderer sr;
+    private PlayerController script;
     private PlayerAimWeapon playerAim;
     public AudioSource hitWall;
     private KillTime timer;
@@ -24,6 +25,7 @@ public class BulletScript : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
 
         player = GameObject.Find("Player");
+        script = player.GetComponent<PlayerController>();
         playerAim = player.GetComponent<PlayerAimWeapon>();
 
         timer = GetComponent<KillTime>();
@@ -34,6 +36,11 @@ public class BulletScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (script.currentGun == CurrentGun.sniper)
+        {
+            speed = 100;
+        }
+
         if (!isDestroyed)
         {
             transform.position += speed * Time.deltaTime * transform.up;
