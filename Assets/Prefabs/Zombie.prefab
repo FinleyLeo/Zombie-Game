@@ -237,6 +237,9 @@ MonoBehaviour:
   health: 0
   coolDown: 0
   explodeRadius: 0
+  coinOffset: 1.5
+  coinMin: 1
+  coinMax: 5
   layers:
     serializedVersion: 2
     m_Bits: 0

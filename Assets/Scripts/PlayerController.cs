@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     // Player Components
     private Rigidbody2D rb;
     private Collider2D col;
+    private SpriteRenderer sr;
 
     // Audio Components
     public AudioSource audioSource;
@@ -65,6 +66,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+        sr = GetComponent<SpriteRenderer>();
 
         postProcessVolume = PP.GetComponent<PostProcessVolume>();
         postProcessVolume.profile.TryGetSettings(out grain);
@@ -208,6 +210,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        StartCoroutine(hitEffect());
         health -= damage;
 
         if (health <= 0)
@@ -340,6 +343,13 @@ public class PlayerController : MonoBehaviour
                 vign.intensity.value -= 0.2f * Time.deltaTime;
             }
         }
+    }
+
+    IEnumerator hitEffect()
+    {
+        sr.color = Color.red;
+        yield return new WaitForSeconds(0.25f);
+        sr.color = Color.white;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

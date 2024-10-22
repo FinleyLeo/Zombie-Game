@@ -42,8 +42,6 @@ public class SpawnManager : MonoBehaviour
         breakCheck = waveCount;
         bossCheck = waveCount;
         waveCounter.text = waveCount.ToString();
-
-        bossHealth = 400;
     }
 
     // Update is called once per frame
@@ -54,6 +52,11 @@ public class SpawnManager : MonoBehaviour
         if (zombieCount == 0 && playerController.onGround)
         {
             WaveCheck();
+        }
+
+        if (boss != null)
+        {
+            bossHealth = boss.GetComponent<EnemyScript>().health;
         }
     }
 
@@ -77,44 +80,67 @@ public class SpawnManager : MonoBehaviour
         }
 
         // boss wave
-        else if (bossCheck == 10 && !bossSpawned)
-        {
-            bossSpawned = true;
-            entranceBlock.SetActive(true);
-            boss = Instantiate(zomboss, GenerateSpawnPos(), Quaternion.identity);
-            bossCheck = 0;
-            breakCheck = 0;
-        }
-
-        if (boss != null)
-        {
-            bossHealth = boss.GetComponent<EnemyScript>().health;
-        }
-
-        if (bossHealth <= 0 && zombieCount == 0 && bossSpawned)
+        else if (bossCheck == 10 && bossHealth > 0)
         {
             waveBreak();
+        }
+
+        else if (bossCheck == 10 && bossHealth <= 0)
+        {
+            bossSpawned = false;
+            entranceBlock.SetActive(false);
+            waveTimer.SetActive(true);
+
+            if (timerScript.timer <= 0 && !bossSpawned)
+            {
+                entranceBlock.SetActive(true);
+                wave++;
+                waveCount++;
+                timerScript.timer = 15;
+                waveTimer.SetActive(false);
+                SpawnWave(wave);
+                breakCheck = 0;
+                breakCheck++;
+                bossCheck++;
+            }
         }
     }
 
     void waveBreak()
     {
-        entranceBlock.SetActive(false);
-        waveTimer.SetActive(true);
-
-        if (timerScript.timer <= 0)
+        if (bossCheck != 10)
         {
-            entranceBlock.SetActive(true);
-            wave++;
-            waveCount++;
-            timerScript.timer = 15;
-            waveTimer.SetActive(false);
-            bossSpawned = false;
-            bossHealth = 400;
-            SpawnWave(wave);
-            breakCheck = 0;
-            breakCheck++;
-            bossCheck++;
+            entranceBlock.SetActive(false);
+            waveTimer.SetActive(true);
+
+            if (timerScript.timer <= 0 && !bossSpawned)
+            {
+                entranceBlock.SetActive(true);
+                wave++;
+                waveCount++;
+                timerScript.timer = 15;
+                waveTimer.SetActive(false);
+                SpawnWave(wave);
+                breakCheck = 0;
+                breakCheck++;
+                bossCheck++;
+            }
+        }
+
+        if (bossCheck == 10 && !bossSpawned)
+        {
+            entranceBlock.SetActive(false);
+            waveTimer.SetActive(true);
+
+            if (timerScript.timer <= 0)
+            {
+                entranceBlock.SetActive(true);
+                timerScript.timer = 15;
+                waveTimer.SetActive(false);
+                boss = Instantiate(zomboss, GenerateSpawnPos(), Quaternion.identity);
+                bossSpawned = true;
+                bossHealth = 400;
+            }
         }
     }
 

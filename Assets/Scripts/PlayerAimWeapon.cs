@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
 using Cinemachine;
+using TMPro;
 
 public class PlayerAimWeapon : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class PlayerAimWeapon : MonoBehaviour
     private GameObject flash;
     private GameObject firePoint;
     public GameObject cam;
+    public GameObject[] guns;
+    public GameObject[] gunIcons;
 
     public Camera _cam;
 
@@ -38,7 +41,7 @@ public class PlayerAimWeapon : MonoBehaviour
     public Sprite lightPlayer;
     public Sprite heavyPlayer;
 
-    public GameObject[] guns;
+    public TextMeshProUGUI ammoText;
 
     public Texture2D cursor;
 
@@ -61,6 +64,7 @@ public class PlayerAimWeapon : MonoBehaviour
 
         flash = GameObject.Find("Flash");
         flash.SetActive(false);
+        gunIcons[0].SetActive(true);
 
         firePoint = GameObject.Find("FirePoint");
 
@@ -88,6 +92,8 @@ public class PlayerAimWeapon : MonoBehaviour
     void Update()
     {
         coolDown -= Time.deltaTime;
+
+        ammoText.text = ammo + "/" + maxAmmo;
     }
 
     void Aiming()
@@ -111,11 +117,12 @@ public class PlayerAimWeapon : MonoBehaviour
                 flash.SetActive(true);
                 StartCoroutine(FlashTime());
                 CameraShake.Instance.ShakeCamera(1f, 0.25f);
-                ammo--;
+                
 
                 if (playerC.currentGun != CurrentGun.RPG && playerC.currentGun != CurrentGun.shotgun)
                 {
                     shoot.Play();
+                    ammo--;
 
                     Instantiate(bullet, firePoint.transform.position, transform.rotation);
                 }
@@ -123,6 +130,7 @@ public class PlayerAimWeapon : MonoBehaviour
                 else if (playerC.currentGun == CurrentGun.shotgun)
                 {
                     shoot.Play();
+                    ammo -= 3;
 
                     Instantiate(bullet, firePoint.transform.position, transform.rotation);
                     Instantiate(bullet, firePoint.transform.position, Quaternion.Euler(transform.rotation.x, transform.rotation.y, -shootDir - 10));
@@ -132,6 +140,7 @@ public class PlayerAimWeapon : MonoBehaviour
                 else if (playerC.currentGun == CurrentGun.RPG)
                 {
                     shoot.PlayOneShot(rocketShoot);
+                    ammo--;
 
                     rocket.SetActive(false);
 
@@ -192,6 +201,12 @@ public class PlayerAimWeapon : MonoBehaviour
             guns[3].SetActive(false);
             guns[4].SetActive(false);
 
+            gunIcons[0].SetActive(true);
+            gunIcons[1].SetActive(false);
+            gunIcons[2].SetActive(false);
+            gunIcons[3].SetActive(false);
+            gunIcons[4].SetActive(false);
+
             sr.sprite = lightPlayer;
             startCoolDown = 0.25f;
             damage = 3;
@@ -207,10 +222,16 @@ public class PlayerAimWeapon : MonoBehaviour
             guns[3].SetActive(false);
             guns[4].SetActive(false);
 
+            gunIcons[0].SetActive(false);
+            gunIcons[1].SetActive(true);
+            gunIcons[2].SetActive(false);
+            gunIcons[3].SetActive(false);
+            gunIcons[4].SetActive(false);
+
             sr.sprite = lightPlayer;
             startCoolDown = 0.5f;
             damage = 3;
-            maxAmmo = 3;
+            maxAmmo = 9;
             ammo = maxAmmo;
         }
 
@@ -221,6 +242,12 @@ public class PlayerAimWeapon : MonoBehaviour
             guns[2].SetActive(true);
             guns[3].SetActive(false);
             guns[4].SetActive(false);
+
+            gunIcons[0].SetActive(false);
+            gunIcons[1].SetActive(false);
+            gunIcons[2].SetActive(true);
+            gunIcons[3].SetActive(false);
+            gunIcons[4].SetActive(false);
 
             cam.GetComponentInChildren<CinemachineVirtualCamera>().m_Lens.OrthographicSize = 8;
 
@@ -239,10 +266,16 @@ public class PlayerAimWeapon : MonoBehaviour
             guns[3].SetActive(true);
             guns[4].SetActive(false);
 
+            gunIcons[0].SetActive(false);
+            gunIcons[1].SetActive(false);
+            gunIcons[2].SetActive(false);
+            gunIcons[3].SetActive(true);
+            gunIcons[4].SetActive(false);
+
             sr.sprite = heavyPlayer;
             startCoolDown = 0.1f;
-            damage = 2;
-            maxAmmo = 30;
+            damage = 1;
+            maxAmmo = 60;
             ammo = maxAmmo;
         }
 
@@ -253,6 +286,12 @@ public class PlayerAimWeapon : MonoBehaviour
             guns[2].SetActive(false);
             guns[3].SetActive(false);
             guns[4].SetActive(true);
+
+            gunIcons[0].SetActive(false);
+            gunIcons[1].SetActive(false);
+            gunIcons[2].SetActive(false);
+            gunIcons[3].SetActive(false);
+            gunIcons[4].SetActive(true);
 
             sr.sprite = heavyPlayer;
             startCoolDown = 1.5f;

@@ -25,10 +25,13 @@ public class EnemyScript : MonoBehaviour
     public float health;
     public float coolDown;
     public float explodeRadius;
+    public float coinOffset;
 
     private int coinQuantity;
+    public int coinMin;
+    public int coinMax;
 
-    private bool isAttacking;
+    public bool isAttacking;
     private bool isColliding;
     private bool isDead;
 
@@ -47,7 +50,7 @@ public class EnemyScript : MonoBehaviour
         target = GameObject.Find("Player").transform;
 
         health = maxHealth;
-        coinQuantity = Random.Range(1, 5);
+        coinQuantity = Random.Range(coinMin, coinMax);
     }
 
     // Update is called once per frame
@@ -109,7 +112,7 @@ public class EnemyScript : MonoBehaviour
 
             for (int i = 0; i < coinQuantity; i++)
             {
-                Vector3 offset = new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), 0);
+                Vector3 offset = new Vector3(Random.Range(-coinOffset, coinOffset), Random.Range(-coinOffset, coinOffset), 0);
 
                 Instantiate(coin, transform.position + offset, Quaternion.identity);
             }
