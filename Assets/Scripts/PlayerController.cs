@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public bool lightActive;
     private bool soundPlayed;
     public bool onFloor = true, onGround = false, inShop = false, shopOpen = false;
+    public bool Paused;
 
     // Player Components
     private Rigidbody2D rb;
@@ -61,6 +62,8 @@ public class PlayerController : MonoBehaviour
     private Grain grain;
     private Vignette vign;
 
+    public GameObject UI, gameOver, Pause, Menu, SettingsMenu;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,21 +77,40 @@ public class PlayerController : MonoBehaviour
 
         lightActive = false;
         health = maxHealth;
+        Paused = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         Movement();
+        HealthCheck();
 
         if (health < maxHealth)
         {
             health += 0.01f * Time.deltaTime;
         }
 
-        HealthCheck();
+        if (Input.GetKeyDown(KeyCode.Escape) && !shopOpen)
+        {
+            if (Paused)
+            {
+                Time.timeScale = 1;
+            }
+            
+            else if (!Paused)
+            {
+                Time.timeScale = 0;
+            }
 
-        if (!shopOpen)
+            Paused = !Paused;
+            UI.SetActive(!Paused);
+            Pause.SetActive(Paused);
+            Menu.SetActive(true);
+            SettingsMenu.SetActive(false);
+        }
+
+        if (!shopOpen && !Paused)
         {
             LightToggle();
             LightCharge();
@@ -112,7 +134,7 @@ public class PlayerController : MonoBehaviour
 
         // Moves player in direction of inputs
 
-        if (!shopOpen)
+        if (!shopOpen && !Paused)
         {
             rb.velocity = new Vector2(horizontalInput * speed, verticalInput * speed);
         }
@@ -215,7 +237,8 @@ public class PlayerController : MonoBehaviour
 
         if (health <= 0)
         {
-            print("You died");
+            UI.SetActive(false);
+            gameOver.SetActive(true);
             Destroy(gameObject);
         }
     }

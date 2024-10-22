@@ -75,7 +75,7 @@ public class PlayerAimWeapon : MonoBehaviour
 
     void OnCameraUpdated(CinemachineBrain brain)
     {
-        if (!playerC.shopOpen)
+        if (!playerC.shopOpen && !playerC.Paused)
         {
             Aiming();
             Shooting();
