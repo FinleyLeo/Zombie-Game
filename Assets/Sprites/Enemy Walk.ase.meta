@@ -8,6 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  importerVersion: 2
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -77,11 +78,14 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   asepriteImporterSettings:
     fileImportMode: 1
     importHiddenLayers: 0
@@ -89,11 +93,14 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
     addSortingGroup: 1
     addShadowCasters: 0
+    generateIndividualEvents: 1
+    generateSpriteAtlas: 1
   importFileNodeState: 1
   platformSettingsDirtyTick: 638640268196143495
   textureAssetName: 
@@ -103,6 +110,7 @@ ScriptedImporter:
     pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 0
@@ -124,6 +132,7 @@ ScriptedImporter:
     pivot: {x: 0.5050505, y: 0.5037037}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -144,6 +153,7 @@ ScriptedImporter:
     pivot: {x: 0.5050505, y: 0.519084}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -164,6 +174,7 @@ ScriptedImporter:
     pivot: {x: 0.5050505, y: 0.4963504}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 4
@@ -184,6 +195,7 @@ ScriptedImporter:
     pivot: {x: 0.5050505, y: 0.519084}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
     rect:
       serializedVersion: 2
       x: 111
@@ -200,40 +212,50 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 111, y: 4}
   spriteSheetImportData: []
+  tileSetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1713237991
+    uuid:
+      value0: 1086171203
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 1086171203
     name: Enemy Walk
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Enemy Walk_Frame_0
+    - name: Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 14
         y: 3
         width: 99
         height: 135
       spriteId: 3e5e8f4aab526474f92caa13c549cc50
-    - name: Enemy Walk_Frame_1
+    - name: Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 14
         y: 3
         width: 99
         height: 131
       spriteId: 3103940cf6af4fb45bb397dbe41d0856
-    - name: Enemy Walk_Frame_2
+    - name: Frame_2
       frameIndex: 2
+      additiveSortOrder: 0
       cellRect:
         x: 14
         y: 3
         width: 99
         height: 137
       spriteId: 588a14c013322cf469ce074c8c340c4f
-    - name: Enemy Walk_Frame_3
+    - name: Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 14
         y: 3
@@ -241,10 +263,14 @@ ScriptedImporter:
         height: 131
       spriteId: 81a7e983698da544db03005b6c5c6702
     linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
     parentIndex: -1
+  tileSets: []
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
+    ignorePlatformSupport: 0
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -256,6 +282,7 @@ ScriptedImporter:
     androidETC2FallbackOverride: 0
   - name: Standalone
     overridden: 0
+    ignorePlatformSupport: 0
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -265,6 +292,8 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 142}
+  previousTextureSize: {x: 256, y: 512}

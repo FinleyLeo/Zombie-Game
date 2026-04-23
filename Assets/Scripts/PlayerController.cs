@@ -136,34 +136,34 @@ public class PlayerController : MonoBehaviour
 
         if (!shopOpen && !Paused)
         {
-            rb.velocity = new Vector2(horizontalInput * speed, verticalInput * speed);
+            rb.linearVelocity = new Vector2(horizontalInput * speed, verticalInput * speed);
         }
 
         else
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
 
         // Stops Speed Increases when using diagonal inputs (like W and D together)
-        if (rb.velocity.magnitude > maxSpeed)
+        if (rb.linearVelocity.magnitude > maxSpeed)
         {
-            rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
+            rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, maxSpeed);
         }
 
         // Plays footstep walking sounds when moving
-        if (rb.velocity.magnitude > 0 && !isPlaying && onFloor)
+        if (rb.linearVelocity.magnitude > 0 && !isPlaying && onFloor)
         {
             floorWalking.Play();
             isPlaying = true;
         }
 
-        if (rb.velocity.magnitude > 0 && !isPlaying && onGround)
+        if (rb.linearVelocity.magnitude > 0 && !isPlaying && onGround)
         {
             grassWalking.Play();
             isPlaying = true;
         }
 
-        if (rb.velocity.magnitude <= 0)
+        if (rb.linearVelocity.magnitude <= 0)
         {
             floorWalking.Stop();
             grassWalking.Stop();
